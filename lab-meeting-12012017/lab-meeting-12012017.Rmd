@@ -84,7 +84,7 @@ require('plyr')
 
 ## Tripal Galaxy and Galaxy workflows
 
-### Using Galaxy as a biologist (Demo)
+### How biologists (assuming none or limited programming experience) can use Galaxy to perform bioinformatics analysis (Demo)
 
 - Launch a Galaxy instance 
 - Install Galaxy tools
@@ -148,7 +148,7 @@ startup
 
 * **Build your own Galaxy docker container**
 
-    + Instead of writing Docker receipe files
+    + Instead of writing Docker receipe files like [this](https://github.com/bgruening/docker-galaxy-stable/blob/master/galaxy/Dockerfile)
     + We build containers from existing container with one single command.
     <pre>
     docker commit [CONTAINER ID] mingchen0919/my-galaxy
@@ -157,6 +157,110 @@ startup
     <pre>
     docker ps -a
     </pre>
+    + To push your container to the Docker repository for future use.
+    <pre>
+    docker push mingchen0919/my-galaxy
+    </pre>
 <hr/>    
 
 
+
+## Tripal Galaxy and Galaxy workflows
+
+### Run Galaxy workflows from a Tripal site with Tripal Galaxy module
+
+* Having admin access to a running Galaxy instance.
+
+    + http://149.165.169.134/
+    
+* Admin user API key
+
+    + Click **User->Preferences->Manage API key**
+    
+* Link Tripal to Galaxy
+
+    + The [Hardwood Genomics Dev site](http://160.36.205.61:8095/) has Tripal Galaxy module installed.
+    + Go to the site and log in as an admin user. Click **Tripal->Extensions->Galaxy**.
+    + Add Galaxy instance and workflows.
+    
+* Run Galaxy workflows from Tripal site
+
+    + Go to the [workflows page](http://160.36.205.61:8095/content/tripal-galaxy-workflows)
+    + Select a workflow and run.
+    
+## Updates on R Markdown Galaxy tools    
+
+### What is a Galaxy tool?
+
+```{r, out.width="800px", fig.align='center'}
+knitr::include_graphics("images/galaxy-tool-structure.png")
+```
+
+## Updates on R Markdown Galaxy tools
+
+### What is an R Markdown Galaxy tool?
+
+```{r, out.width="600px", fig.align='center'}
+knitr::include_graphics("images/rmarkdown-galaxy-tool-structure.png")
+```
+
+
+## Updates on R Markdown Galaxy tools
+
+### How R Markdown benefits the development of Galaxy tools?
+
+- All tools render outputs in an HTML document or even a website.
+- All kinds of data visualization and analysis packages from several different languages, not just R
+
+```{r, out.width="600px", fig.align='center'}
+knitr::include_graphics("images/r-data-visualization.png")
+```
+
+
+## Updates on R Markdown Galaxy tools
+
+### Templates available for developing R Markdown Galaxy tools
+
+* [tool_template.xml](https://github.com/statonlab/docker-GRReport/blob/master/rmarkdown_tool_templates/single_report/tool_template.xml)
+
+```{r, out.width="600px", fig.align='center'}
+knitr::include_graphics("images/tool_template_xml.png")
+```
+
+* [tool_template_render.R](https://github.com/statonlab/docker-GRReport/blob/master/rmarkdown_tool_templates/single_report/tool_template_render.R)
+
+```{r, out.width="600px", fig.align='center'}
+knitr::include_graphics("images/tool_template_render_R.png")
+```
+
+
+## Updates on R Markdown Galaxy tools
+
+### R Markdown Galaxy tools on Tool Shed
+
+```{r, out.width="800px", fig.align='center'}
+knitr::include_graphics("images/rmarkdown-tools-on-toolshed.png")
+```
+
+
+## Galaxy Tool Generator platform
+
+**Galaxy Tool Generator (GTG)** is a web-based platform for asisting Galaxy tool development. The components of the GTG platform includes:
+
+  + A Drupal site
+  + Two Drupal modules: `Galaxy Tool Generator` & `Galaxy Tool Generator UI`
+  + A Docker container with Drupal and the two modules integrated
+  + A Docker Galaxy container (optional)
+
+
+## Galaxy Tool Generator platform
+
+### What **GTG** platform can do?
+
+- Integrates all component definitions of Galaxy tool XML - it's difficult to memorize all the [Galaxy tool XML syntax](https://docs.galaxyproject.org/en/latest/dev/schema.html).
+- Drag and Drop to rearrange components of Galaxy tool interfaces - without GTG, you will have to cut, copy and paste the XML code to achieve this.
+- Easily adjusting and refining the tool during development - GTG integrates all XML tags and attributes and stores previously input values. 
+- Build tools with R Markdown templates.
+- Build tools upon existing Galaxy tools.
+- Publish tools to Tool Shed and Test Tool Shed.
+- Simutaneously testing modified tools on Galaxy instance.
