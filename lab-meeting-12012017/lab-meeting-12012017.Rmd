@@ -1,0 +1,39 @@
+---
+title: "Lab Meeting (12-01-2017)"
+author: "Ming Chen"
+date: "12/01/2017"
+output: slidy_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## Overview
+
+- Singularity container
+- Tripal Galaxy and Galaxy workflows
+- Updates on R Markdown Galaxy tools
+- Galaxy tool generator platform
+
+## Singularity Container
+
+### What can container technologies do for you?
+
+>- You can put an OS into a container and install all kinds of tools and apps into the system.
+>- You can transfer the container to a different computer and use the tools and apps within the container.
+>- From the view of biologists, container technologies allow you to have all kinds flavors of virtual computers and stably move these computers around.
+
+## Singularity Container
+
+### Building containers
+
+- Can be built from receipe files
+- Can be easily done by pulling existing containers from container repositories
+
+```{r, out.width = "400px", fig.align='center'}
+knitr::include_graphics("images/singularity-build-container.png")
+```
+
+
