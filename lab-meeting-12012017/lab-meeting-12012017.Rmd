@@ -81,3 +81,82 @@ R
 require('plyr')
 ```
 
+
+## Tripal Galaxy and Galaxy workflows
+
+### Using Galaxy as a biologist (Demo)
+
+- Launch a Galaxy instance 
+- Install Galaxy tools
+- Build Galaxy workflows
+- Run Galaxy workflows
+- Build your own Galaxy docker container
+- Run Galaxy workflows from a Tripal site with Tripal Galaxy module
+
+## Tripal Galaxy and Galaxy workflows
+
+### Launch a Galaxy instance
+
+We are going to use the Docker container created by [Björn Grüning](https://github.com/bgruening/docker-galaxy-stable).
+
+```{r, fig.align='center'}
+knitr::include_graphics("images/docker-galaxy-download-count.png")
+```
+
+Launch a docker container which has galaxy installed
+```{bash eval=FALSE, echo=TRUE}
+docker run -it --rm --name=galaxy_instance \
+        -p 80:80 -p 8021:21 -p 8022:22 \
+        -e "ENABLE_TTS_INSTALL=True" \
+        -e "GALAXY_CONFIG_ADMIN_USERS=example@gmail.com" \
+        bgruening/galaxy-stable:17.01 /bin/bash
+```
+
+Start Galaxy
+```{bash eval=FALSE, echo=TRUE}
+startup
+```
+
+## Tripal Galaxy and Galaxy workflows
+
+* **Sign up an account**
+
+    + Go to http://127.0.01.</span> 
+    + Click **User->Register** and register an account with email <code>example@gmail.com</code>.</span>
+<hr/>
+
+* **Install `fastqc` and `trimmomatic`**
+
+    + Click **Admin->Search Tool Shed->Galaxy Main Tool Shed**
+    + Search for `fastqc` and select the one owned by `devteam` and install
+    + Search for `trimmomatic` and select the one owned by `pjbriggs` and install
+<hr/>
+
+* **Build and run Galaxy workflows** 
+
+    + Click **Workflow->create new workflow**
+    + Give your new workflow a name and click **Create**. Here we are going to create a `reads quality control` workflow.
+    + Drop the `fastqc` and `trimmomatic` tools to the workflow creating panel and connect them to create workflows.
+    + Run the workflow.
+<hr/>
+
+* **Build workflow from history**
+
+    + Click **history options** on the history panel and then click **Extract workflow**
+    + You can select which steps from your analysis history to be included in your workflow.
+<hr/>
+
+* **Build your own Galaxy docker container**
+
+    + Instead of writing Docker receipe files
+    + We build containers from existing container with one single command.
+    <pre>
+    docker commit [CONTAINER ID] mingchen0919/my-galaxy
+    </pre>
+    + To get the [CONTAINER ID], use the command
+    <pre>
+    docker ps -a
+    </pre>
+<hr/>    
+
+
