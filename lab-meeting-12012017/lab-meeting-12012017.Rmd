@@ -37,4 +37,47 @@ knitr::opts_chunk$set(echo = FALSE)
 knitr::include_graphics("images/singularity-build-container.png")
 ```
 
+## Singularity Container
+
+### What is cool about Singularity container?
+
+>- You don't need privileged permission to run singularity container. HPC cluster users usually don't have privileged permission.
+>- You can build containers locally and install tools as root user. Then you can run the containers on the HPC cluster and use tools that you usually don't have permission to install.
+
+## Singularity Container
+
+### Demo
+
+Pull a container with R installed on my local computer.
+
+```{bash eval=FALSE, echo=TRUE}
+singularity build --writable r.img docker://r-base
+```
+
+Install a testing package as root user.
+
+```{bash eval=FALSE, echo=TRUE}
+# run container interactively
+singularity shell --writable r.img
+
+# open R and install a testing package
+R
+install.package('plyr')
+```
+
+Transfer the container to a HPC cluster
+
+```{bash eval=FALSE, echo=TRUE}
+scp r.img  mchen33@149.165.156.175:/home/mchen33/r.img
+```
+
+Run the container on the HPC cluster as **non-root** user.
+
+```{bash eval=FALSE, echo=TRUE}
+singularity shell r.img
+
+# check the testing package
+R
+require('plyr')
+```
 
