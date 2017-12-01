@@ -116,9 +116,9 @@ require('plyr')
 
 ## Tripal Galaxy and Galaxy workflows
 
-### How biologists (assuming none or limited programming experience) can use Galaxy to perform bioinformatics analysis (Demo)
+### How biologists (who have very limited programming experience) can use Galaxy to perform bioinformatics analysis (Demo)
 
-- Launch a Galaxy instance 
+- Launch a Galaxy instance with Docker
 - Install Galaxy tools
 - Build Galaxy workflows
 - Run Galaxy workflows
@@ -127,7 +127,7 @@ require('plyr')
 
 ## Tripal Galaxy and Galaxy workflows
 
-### Launch a Galaxy instance
+### Launch a Galaxy instance with Docker
 
 We are going to use the Docker container created by [Björn Grüning](https://github.com/bgruening/docker-galaxy-stable).
 
