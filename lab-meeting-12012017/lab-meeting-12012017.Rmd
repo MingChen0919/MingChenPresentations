@@ -48,22 +48,51 @@ knitr::include_graphics("images/singularity-build-container.png")
 
 ### Demo
 
-Pull a container with R installed on my local computer.
+Get Singularity ready on my local computer
+
+```{base eval=FALSE, echo=TRUE}
+mkdir -p ~/Desktop/singularity-images && cd ~/Desktop/singularity-images
+docker run -it --rm --privileged -v ~/Desktop/singularity-images:/home/singularity-images mingchen0919/docker-singularity
+```
+
+Pull a container with R installed to my local computer.
 
 ```{bash eval=FALSE, echo=TRUE}
+cd /home/singularity-images
 singularity build --writable r.img docker://r-base
 ```
 
-Install a testing package as root user.
+
+Run the R container
 
 ```{bash eval=FALSE, echo=TRUE}
+# check the image file
+ls 
+
 # run container interactively
 singularity shell --writable r.img
-
-# open R and install a testing package
-R
-install.package('plyr')
 ```
+
+Test that the R package `plyr` does not exist before we install it
+
+```{r eval=FALSE, echo=TRUE}
+R
+require('plyr')
+```
+
+Install package `plyr`
+
+```{r eval=FALSE, echo=TRUE}
+install.packages('plyr')
+require('plyr')
+```
+
+Exit the singularity container
+
+```{bash eval=FALSE, echo=TRUE}
+exit
+```
+
 
 Transfer the container to a HPC cluster
 
@@ -74,6 +103,9 @@ scp r.img  mchen33@149.165.156.175:/home/mchen33/r.img
 Run the container on the HPC cluster as **non-root** user.
 
 ```{bash eval=FALSE, echo=TRUE}
+# login to the HPC cluster
+ssh mchen33@149.165.156.175
+
 singularity shell r.img
 
 # check the testing package
@@ -269,7 +301,7 @@ knitr::include_graphics("images/rmarkdown-tools-on-toolshed.png")
 
 ### Start GTG platform
 
-The module is still under development. The code below will eventually replaced by a one line command.
+The platform is still under development. The code below will eventually replaced by a one line command.
 
 ```{bash eval=FALSE, echo=TRUE}
 mkdir -p ~/Desktop/galaxy-tool-generator-dev && cd ~/Desktop/galaxy-tool-generator-dev
