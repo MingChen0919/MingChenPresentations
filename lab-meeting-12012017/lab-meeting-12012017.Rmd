@@ -264,3 +264,91 @@ knitr::include_graphics("images/rmarkdown-tools-on-toolshed.png")
 - Build tools upon existing Galaxy tools.
 - Publish tools to Tool Shed and Test Tool Shed.
 - Simutaneously testing modified tools on Galaxy instance.
+
+## Galaxy Tool Generator platform
+
+### Start GTG platform
+
+The module is still under development. The code below will eventually replaced by a one line command.
+
+```{bash eval=FALSE, echo=TRUE}
+mkdir -p ~/Desktop/galaxy-tool-generator-dev && cd ~/Desktop/galaxy-tool-generator-dev
+git clone https://github.com/MingChen0919/galaxy_tool_generator.git
+git clone https://github.com/MingChen0919/galaxy_tool_generator_ui.git
+git clone https://github.com/galaxyproject/blend4php.git
+
+docker run -it -p 8090:80 --rm --network=galaxy_tool_generator_nw \
+            -v $(pwd)/galaxy_tools:/var/www/html/sites/default/files/galaxy_tools \
+            -v $(pwd)/galaxy_tool_generator:/var/www/html/sites/all/modules/galaxy_tool_generator \
+            -v $(pwd)/galaxy_tool_generator_ui:/var/www/html/sites/all/modules/galaxy_tool_generator_ui \
+            -v $(pwd)/blend4php:/var/www/html/sites/all/libraries/blend4php \
+            mingchen0919/docker-galaxy-tool-generator '/bin/bash'
+   
+drush en -y galaxy_tool_generator galaxy_tool_generator_ui
+```
+
+Go to http://127.0.0.1:8090/
+
+## Galaxy Tool Generator platform
+
+### Create Galaxy tools (demo)
+
+- From scratch
+- Start with R Markdown template
+- Start with existing XML
+
+```{r, out.width="800px", fig.align='center'}
+knitr::include_graphics("images/gtg-create-tools.png")
+```
+
+
+## Galaxy Tool Generator platform
+
+### Publish to Tool Shed/Test Tool Shed
+
+* Add tool shed/test tool shed API keys
+
+```{r, out.width="800px", fig.align='center'}
+knitr::include_graphics("images/add-toolshed-api-key.png")
+```
+
+* Publish to tool shed/test tool shed
+
+See [https://testtoolshed.g2.bx.psu.edu/](https://testtoolshed.g2.bx.psu.edu/) and search for `test_galaxy_tool_generator`.
+
+```{r, out.width="800px", fig.align='center'}
+knitr::include_graphics("images/publish-to-toolshed.png")
+```
+
+
+## Galaxy Tool Generator platform
+
+### Install and test tool on a Galaxy instance
+
+* Launch Galaxy container
+```{r eval=FALSE, echo=TRUE}
+cd ~/Desktop/galaxy-tool-generator-dev && mkdir shed_tools
+ 
+docker run -it --rm --network=galaxy_tool_generator_nw --name=galaxy_instance \
+        -p 8080:80 -p 8021:21 -p 8022:22 \
+        -v $(pwd)/shed_tools:/export/shed_tools \
+        -e "ENABLE_TTS_INSTALL=True" \
+        -e "GALAXY_CONFIG_ADMIN_USERS=example@gmail.com" \
+        bgruening/galaxy-stable:17.01 /bin/bash
+```
+
+* Start Galaxy instance
+
+```{r eval=FALSE, echo=TRUE}
+startup
+```
+
+* Register an account on Galaxy instance
+
+* Install a testing tool (e.g., the `test_galaxy_tool_generator` tool from test tool shed).
+
+* Simutaneously testing modified tools on Galaxy (under development)
+
+    + This can be done by mapping both the Galaxy tool generating directory of the GTG platform and the tool repositories directory of the Galaxy instance to the same host directory.
+    
+
