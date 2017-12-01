@@ -5,13 +5,13 @@ date: "12/01/2017"
 output: slidy_presentation
 ---
 
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
 ## Overview
-
 - Singularity container
 - Tripal Galaxy and Galaxy workflows
 - Updates on R Markdown Galaxy tools
@@ -384,3 +384,15 @@ startup
     + This can be done by mapping both the Galaxy tool generating directory of the GTG platform and the tool repositories directory of the Galaxy instance to the same host directory.
     
 
+<!--
+The following code is for creating scrollbar for code chunks. This should be placed at the
+end of this file. Otherwise, it will creates an empty slide.
+-->
+<style>
+pre code, pre, code {
+  white-space: pre !important;
+  overflow-x: scroll !important;
+  word-break: keep-all !important;
+  word-wrap: initial !important;
+}
+</style>
